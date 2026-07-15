@@ -4,48 +4,68 @@ const fs = require('fs');
 const path = require('path');
 const app = express();
 
-app.use(cors());
+// 1. إعدادات الـ CORS الكاملة لمنع أي حظر من المتصفحات أو الموبايل
+app.use(cors({
+    origin: '*', // السماح لأي مكان بالاتصال بالسيرفر
+    methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+    allowedHeaders: ['Content-Type', 'Authorization']
+}));
+
 app.use(express.json());
 
-const DB_PATH = path.join(__dirname, 'database.json');
+// تحديد مسار قاعدة البيانات في مجلد /tmp المسموح بالكتابة فيه على Vercel
+const DB_PATH = path.join('/tmp', 'database.json');
 
 // ===================================================================
-// قراءة البيانات بأمان وضمان رجوع مصفوفة (Array) دائماً لتجنب أخطاء الـ Sort
+// قراءة البيانات بأمان وضمان رجوع مصفوفة (Array) دائماً
 // ===================================================================
 function readData() {
     try {
-        if (!fs.existsSync(DB_PATH)) return [];
+        if (!fs.existsSync(DB_PATH)) {
+            // لو الملف مش موجود في الـ tmp، نحاول نشوف لو فيه نسخة احتياطية في المجلد الرئيسي
+            const localBackup = path.join(__dirname, 'database.json');
+            if (fs.existsSync(localBackup)) {
+                const backupData = fs.readFileSync(localBackup, 'utf8');
+                fs.writeFileSync(DB_PATH, backupData, 'utf8'); // نسخها للـ tmp
+                return JSON.parse(backupData);
+            }
+            return [];
+        }
         const data = fs.readFileSync(DB_PATH, 'utf8').trim();
-        if (!data) return []; // لو الملف فارغ تماماً رجع مصفوفة فارغة
+        if (!data) return [];
         
         const parsed = JSON.parse(data);
-        return Array.isArray(parsed) ? parsed : []; // التأكد 100% أن الناتج مصفوفة صالحة
+        return Array.isArray(parsed) ? parsed : [];
     } catch (e) { 
         return []; 
     }
 }
 
-// حفظ البيانات في ملف قاعدة البيانات (database.json)
+// حفظ البيانات في ملف قاعدة البيانات
 function writeData(data) {
-    fs.writeFileSync(DB_PATH, JSON.stringify(data, null, 2), 'utf8');
+    try {
+        fs.writeFileSync(DB_PATH, JSON.stringify(data, null, 2), 'utf8');
+    } catch (e) {
+        console.error("خطأ أثناء حفظ البيانات:", e);
+    }
 }
 
 // ===================================================================
-// 1. رابط جلب لوحة الصدارة (مرتبة بالأكثر حلاً للألغاز أولاً ثم الـ IQ الأعلى)
+// 1. رابط جلب لوحة الصدارة
 // ===================================================================
 app.get('/api/leaderboard', (req, res) => {
     const players = readData();
     const sorted = players.sort((a, b) => {
         if (b.solved !== a.solved) {
-            return (b.solved || 0) - (a.solved || 0); // ترتيب تنازلي حسب عدد الألغاز المحلولة
+            return (b.solved || 0) - (a.solved || 0); 
         }
-        return (b.iq || 0) - (a.iq || 0); // في حال التساوي، يتم الترتيب حسب الـ IQ الأعلى
+        return (b.iq || 0) - (a.iq || 0); 
     });
     res.json(sorted);
 });
 
 // ===================================================================
-// 2. تحديث وإضافة المتسابقين وتوليد تاريخ الحل تلقائياً بناءً على تاريخ جهازك
+// 2. تحديث وإضافة المتسابقين
 // ===================================================================
 app.post('/api/player/update', (req, res) => {
     const { username, age, country, flag, iq, wins, streak, fullname, king_title } = req.body;
@@ -54,23 +74,20 @@ app.post('/api/player/update', (req, res) => {
     let players = readData();
     let player = players.find(p => p.username === username);
 
-    // توليد التاريخ الحالي لجهازك بالملي بتنسيق أنيق (YYYY-MM-DD)
     const today = new Date();
-    const formattedDate = today.toISOString().split('T')[0]; // النتيجة مثل: 2026-07-15
+    const formattedDate = today.toISOString().split('T')[0]; // 2026-07-15
 
     if (player) {
-        // تحديث البيانات الحالية مع استبدال التاريخ القديم بالتاريخ الجديد فوراً وتجاهل القديم
         player.age = age || player.age;
         player.country = country || player.country;
         player.flag = flag || player.flag;
         player.iq = iq || player.iq;
-        player.solved = wins || player.solved; // ربط wins بـ solved
+        player.solved = wins || player.solved; 
         player.title = king_title || player.title;
         player.fullname = fullname || player.fullname;
         player.streak = streak || player.streak;
-        player.lastSolveDate = formattedDate; // تحديث التاريخ التلقائي للغز الجديد وتجاهل القديم
+        player.lastSolveDate = formattedDate; 
     } else {
-        // إنشاء متسابق جديد بالكامل في حال لم يكن مسجلاً من قبل
         player = { 
             username, 
             age, 
@@ -81,7 +98,7 @@ app.post('/api/player/update', (req, res) => {
             title: king_title, 
             fullname,
             streak: streak || 0,
-            lastSolveDate: formattedDate // إدخال تاريخ أول حل تلقائياً
+            lastSolveDate: formattedDate 
         };
         players.push(player);
     }
@@ -91,13 +108,15 @@ app.post('/api/player/update', (req, res) => {
 });
 
 // ===================================================================
-// 3. تصفير الموسم بالكامل (حذف جميع بيانات المتسابقين)
+// 3. تصفير الموسم بالكامل
 // ===================================================================
 app.post('/api/reset', (req, res) => {
     writeData([]);
     res.json({ success: true });
 });
 
-// تشغيل السيرفر على البورت 5000
-const PORT = 5000;
-app.listen(PORT, () => console.log(`🚀 سيرفر Dopamine AI الذكي شغال على بورت ${PORT}`));
+// تشغيل السيرفر محلياً (Vercel سيتجاهل هذا عند الرفع ويشغله كسيرفر سحابي بدون مشاكل)
+const PORT = process.env.PORT || 5000;
+app.listen(PORT, () => console.log(`🚀 سيرفر Dopamine AI شغال على بورت ${PORT}`));
+
+module.exports = app; // مهم جداً لـ Vercel
