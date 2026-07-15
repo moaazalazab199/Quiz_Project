@@ -1,0 +1,368 @@
+﻿<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+	<head>
+		<meta charset="UTF-8">
+			<meta name="viewport" content="width=device-width, initial-scale=1.0">
+				<title>Dopamine AI | لوحة التحكم السرية</title>
+				<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700;900&family=Orbitron:wght@500;700;900&display=swap" rel="stylesheet" />
+				<style>
+					/* ===== RESET & VARIABLES ===== */
+					* { margin: 0; padding: 0; box-sizing: border-box; }
+
+					:root {
+					--bg-dark: #07090e;
+					--card-bg: #0f131a;
+					--gold: #ffd700;
+					--fiery-orange: #ff6a00;
+					--text-white: #ffffff;
+					--text-muted: #8a99ad;
+					--border-color: #1b2330;
+					}
+
+					body {
+					background: var(--bg-dark);
+					color: var(--text-white);
+					font-family: 'Cairo', 'Segoe UI', sans-serif;
+					display: flex;
+					justify-content: center;
+					align-items: center;
+					min-height: 100vh;
+					margin: 0;
+					padding: 20px;
+					}
+
+					.container {
+					background: var(--card-bg);
+					padding: 40px 35px;
+					border-radius: 20px;
+					box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5), 0 0 40px rgba(255, 106, 0, 0.05);
+					border: 1px solid var(--border-color);
+					width: 100%;
+					max-width: 500px;
+					}
+
+					/* ===== LOGO ===== */
+					.logo { text-align: center; margin-bottom: 25px; }
+					.logo h1 {
+					font-family: 'Orbitron', sans-serif;
+					font-size: 28px;
+					font-weight: 900;
+					background: linear-gradient(135deg, var(--text-white) 30%, var(--gold) 70%);
+					-webkit-background-clip: text;
+					-webkit-text-fill-color: transparent;
+					}
+					.logo span {
+					font-size: 13px;
+					color: var(--text-muted);
+					display: block;
+					margin-top: 4px;
+					font-weight: 600;
+					letter-spacing: 2px;
+					}
+
+					/* ===== STATUS BADGE ===== */
+					.status-badge {
+					text-align: center;
+					margin-bottom: 25px;
+					padding: 8px 12px;
+					background: rgba(255, 106, 0, 0.05);
+					border-radius: 30px;
+					border: 1px solid rgba(255, 106, 0, 0.15);
+					font-size: 13px;
+					color: var(--text-muted);
+					}
+					.status-badge .dot {
+					display: inline-block;
+					width: 8px;
+					height: 8px;
+					border-radius: 50%;
+					background: #39ff14;
+					margin-left: 8px;
+					animation: blink-dot 1.2s ease-in-out infinite;
+					}
+					@keyframes blink-dot {
+					0%, 100% { opacity: 1; }
+					50% { opacity: 0.2; }
+					}
+
+					/* ===== FORM GROUP ===== */
+					.form-group {
+					margin-bottom: 15px;
+					}
+					.form-group label {
+					display: block;
+					font-size: 13px;
+					color: var(--text-muted);
+					margin-bottom: 6px;
+					font-weight: 700;
+					}
+					.form-group input,
+					.form-group select {
+					width: 100%;
+					padding: 12px 16px;
+					border-radius: 10px;
+					border: 1px solid var(--border-color);
+					background: #141a24;
+					color: var(--text-white);
+					font-size: 14px;
+					font-family: 'Cairo', sans-serif;
+					transition: all 0.3s ease;
+					outline: none;
+					}
+					.form-group input:focus,
+					.form-group select:focus {
+					border-color: var(--fiery-orange);
+					box-shadow: 0 0 15px rgba(255, 106, 0, 0.15);
+					background: #18202d;
+					}
+					.form-group input::placeholder {
+					color: rgba(138, 153, 173, 0.4);
+					}
+					.form-group select option {
+					background: var(--card-bg);
+					color: var(--text-white);
+					}
+
+					.form-row {
+					display: grid;
+					grid-template-columns: 1fr 1fr;
+					gap: 12px;
+					}
+
+					/* ===== BUTTONS ===== */
+					.btn {
+					width: 100%;
+					padding: 14px;
+					background: linear-gradient(135deg, var(--gold), var(--fiery-orange));
+					border: none;
+					border-radius: 10px;
+					color: var(--bg-dark);
+					font-weight: 800;
+					font-size: 16px;
+					cursor: pointer;
+					transition: all 0.3s ease;
+					letter-spacing: 1px;
+					}
+					.btn:hover {
+					transform: translateY(-2px);
+					box-shadow: 0 8px 25px rgba(255, 106, 0, 0.3);
+					}
+					.btn-danger {
+					background: linear-gradient(135deg, #ff4d4d, #ff1a1a);
+					margin-top: 10px;
+					color: white;
+					}
+					.btn-danger:hover {
+					box-shadow: 0 8px 25px rgba(255, 77, 77, 0.3);
+					}
+
+					/* ===== MESSAGES ===== */
+					#msg {
+					text-align: center;
+					margin-top: 15px;
+					font-size: 14px;
+					font-weight: 600;
+					padding: 10px;
+					border-radius: 8px;
+					}
+					#msg.success {
+					color: #4ade80;
+					background: rgba(74, 222, 128, 0.05);
+					border: 1px solid rgba(74, 222, 128, 0.15);
+					}
+					#msg.error {
+					color: #ff4d4d;
+					background: rgba(255, 77, 77, 0.05);
+					border: 1px solid rgba(255, 77, 77, 0.15);
+					}
+
+					.divider {
+					height: 1px;
+					background: linear-gradient(90deg, transparent, var(--border-color), transparent);
+					margin: 20px 0;
+					}
+
+					@media (max-width: 480px) {
+					.container { padding: 25px 20px; }
+					.form-row { grid-template-columns: 1fr; }
+					}
+				</style>
+			</head>
+	<body>
+
+		<div class="container">
+			<div class="logo">
+				<h1>🧠 Dopamine AI</h1>
+				<span>لوحة التحكم السرية للمشرف</span>
+			</div>
+
+			<div class="status-badge">
+				<span class="dot"></span> السيرفر متصل وجاهز
+			</div>
+
+			<div class="form-group">
+				<label>👤 اسم المستخدم (كما يظهر في فيسبوك)</label>
+				<input type="text" id="username" placeholder="مثال: عبد الرحمن عصام" />
+			</div>
+
+			<div class="form-row">
+				<div class="form-group">
+					<label>🧠 نقاط الذكاء (IQ)</label>
+					<input type="number" id="iq" placeholder="مثال: 135" />
+				</div>
+				<div class="form-group">
+					<label>🧩 الألغاز المحلولة (Wins)</label>
+					<input type="number" id="wins" placeholder="مثال: 5" />
+				</div>
+			</div>
+
+			<div class="form-group">
+				<label>🔥 سلسلة التوالي (Streak)</label>
+				<input type="number" id="streak" placeholder="مثال: 3" />
+			</div>
+
+			<div class="form-row">
+				<div class="form-group">
+					<label>👤 الاسم الكامل</label>
+					<input type="text" id="fullname" placeholder="مثال: عبد الرحمن عصام" />
+				</div>
+				<div class="form-group">
+					<label>🎂 العمر</label>
+					<input type="number" id="age" placeholder="مثال: 22" />
+				</div>
+			</div>
+
+			<div class="form-row">
+				<div class="form-group">
+					<label>🌍 البلد</label>
+					<select id="country">
+						<option value="مصر">🇪🇬 مصر</option>
+						<option value="السعودية">🇸🇦 السعودية</option>
+						<option value="الإمارات">🇦🇪 الإمارات</option>
+						<option value="الكويت">🇰🇼 الكويت</option>
+						<option value="قطر">🇶🇦 قطر</option>
+						<option value="الأردن">🇯🇴 الأردن</option>
+						<option value="المغرب">🇲🇦 المغرب</option>
+						<option value="الجزائر">🇩🇿 الجزائر</option>
+						<option value="تونس">🇹🇳 تونس</option>
+						<option value="ليبيا">🇱🇾 ليبيا</option>
+						<option value="العراق">🇮🇶 العراق</option>
+					</select>
+				</div>
+				<div class="form-group">
+					<label>👑 اللقب الملكي</label>
+					<select id="king_title">
+						<option value="👑 ملك الألغاز">👑 ملك الألغاز</option>
+						<option value="🧠 العقل اللامع">🧠 العقل اللامع</option>
+						<option value="🕵️ المحقق الرقمي">🕵️ المحقق الرقمي</option>
+						<option value="⚡ أسرع عقل">⚡ أسرع عقل</option>
+						<option value="👾 أسطورة الـ AI">👾 أسطورة الـ AI</option>
+					</select>
+				</div>
+			</div>
+
+			<button class="btn" onclick="addPlayer()">➕ إضافة / تحديث متسابق</button>
+
+			<div class="divider"></div>
+
+			<button class="btn btn-danger" onclick="resetAll()">🗑️ تصفير الموسم (حذف البيانات)</button>
+
+			<div id="msg"></div>
+		</div>
+
+		<script>
+			const API_URL = "http://localhost:5000/api";
+
+			function addPlayer() {
+			const username = document.getElementById('username').value.trim();
+			const iq = parseInt(document.getElementById('iq').value) || 0;
+			const wins = parseInt(document.getElementById('wins').value) || 0;
+			const streak = parseInt(document.getElementById('streak').value) || 0;
+			const fullname = document.getElementById('fullname').value.trim() || '----';
+			const age = parseInt(document.getElementById('age').value) || 0;
+			const country = document.getElementById('country').value;
+			const king_title = document.getElementById('king_title').value;
+
+			const msgDiv = document.getElementById('msg');
+
+			if (!username) {
+			msgDiv.className = 'error';
+			msgDiv.innerText = '⚠️ من فضلك أدخل اسم المستخدم!';
+			return;
+			}
+
+			const countryMap = {
+			'مصر': '🇪🇬',
+			'السعودية': '🇸🇦',
+			'الإمارات': '🇦🇪',
+			'الكويت': '🇰🇼',
+			'قطر': '🇶🇦',
+			'الأردن': '🇯🇴',
+			'المغرب': '🇲🇦',
+			'الجزائر': '🇩🇿',
+			'تونس': '🇹🇳',
+			'ليبيا': '🇱🇾',
+			'العراق': '🇮🇶'
+			};
+			const flag = countryMap[country] || '🌍';
+
+			msgDiv.className = '';
+			msgDiv.innerText = '⏳ جاري الإرسال للتحديث...';
+
+			fetch(`${API_URL}/player/update`, {
+			method: "POST",
+			headers: { "Content-Type": "application/json" },
+			body: JSON.stringify({ username, iq, wins, streak, fullname, age, country, flag, king_title })
+			})
+			.then(res => res.json())
+			.then(data => {
+			if (data.success) {
+			msgDiv.className = 'success';
+			msgDiv.innerText = `✅ تم تحديث بيانات ${username} بنجاح!`;
+			document.getElementById('username').value = '';
+			document.getElementById('iq').value = '';
+			document.getElementById('wins').value = '';
+			document.getElementById('streak').value = '';
+			document.getElementById('fullname').value = '';
+			document.getElementById('age').value = '';
+			setTimeout(() => { msgDiv.className = ''; msgDiv.innerText = ''; }, 3000);
+			} else {
+			msgDiv.className = 'error';
+			msgDiv.innerText = '❌ ' + (data.error || 'حدث خطأ!');
+			}
+			})
+			.catch(err => {
+			console.error(err);
+			msgDiv.className = 'error';
+			msgDiv.innerText = '❌ فشل الاتصال بالسيرفر!';
+			});
+			}
+
+			function resetAll() {
+			if (!confirm('⚠️ هل أنت متأكد من تصفير الموسم وحذف جميع البيانات؟')) return;
+
+			const msgDiv = document.getElementById('msg');
+			msgDiv.className = '';
+			msgDiv.innerText = '⏳ جاري الحذف...';
+
+			fetch(`${API_URL}/reset`, { method: "POST" })
+			.then(res => res.json())
+			.then(data => {
+			if (data.success) {
+			msgDiv.className = 'success';
+			msgDiv.innerText = '🗑️ تم تصفير الموسم وحذف جميع البيانات بنجاح!';
+			setTimeout(() => { msgDiv.className = ''; msgDiv.innerText = ''; }, 3000);
+			}
+			})
+			.catch(err => {
+			msgDiv.className = 'error';
+			msgDiv.innerText = '❌ فشل الاتصال بالسيرفر!';
+			});
+			}
+
+			document.addEventListener('keydown', (e) => {
+			if (e.key === 'Enter') addPlayer();
+			});
+		</script>
+	</body>
+</html>
