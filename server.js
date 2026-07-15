@@ -4,8 +4,9 @@ const fs = require('fs');
 const path = require('path');
 const app = express();
 
-const cors = require('cors');
-app.use(cors({ origin: '*' }));
+app.use(cors());
+app.use(express.json());
+
 const DB_PATH = path.join(__dirname, 'database.json');
 
 // ===================================================================
