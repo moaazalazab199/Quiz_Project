@@ -1,8 +1,9 @@
 const express = require('express');
 const cors = require('cors');
+const { Redis } = require('@upstash/redis'); // استيراد مكتبة Upstash Redis الجديدة
 const app = express();
 
-// إعدادات الـ CORS الكاملة
+// إعدادات الـ CORS الكاملة لمنع الحظر
 app.use(cors({
     origin: '*',
     methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
@@ -11,14 +12,33 @@ app.use(cors({
 
 app.use(express.json());
 
-// مصفوفة في الذاكرة لتخزين البيانات بدلاً من الملفات لتجنب خطأ 500 على Vercel
-let playersDatabase = [];
+// الاتصال التلقائي بـ Upstash Redis عبر المتغيرات اللي Vercel أضافها
+const redis = new Redis({
+    url: process.env.UPSTASH_REDIS_REST_URL,
+    token: process.env.UPSTASH_REDIS_REST_TOKEN,
+});
+
+// مفتاح حفظ البيانات السحابي
+const DB_KEY = 'dopamine_players_db';
+
+// دالة مساعدة لجلب البيانات بأمان من السحاب
+async function getPlayers() {
+    try {
+        const players = await redis.get(DB_KEY);
+        // لو البيانات رجعت مصفوفة تمام، لو لسه أول مرة وقافلة رجع مصفوفة فارغة
+        return Array.isArray(players) ? players : [];
+    } catch (e) {
+        console.error("خطأ في قراءة قاعدة بيانات Upstash:", e);
+        return [];
+    }
+}
 
 // ===================================================================
-// 1. رابط جلب لوحة الصدارة
+// 1. رابط جلب لوحة الصدارة (مرتبة بالأكثر حلاً ثم الـ IQ الأعلى)
 // ===================================================================
-app.get('/api/leaderboard', (req, res) => {
-    const sorted = [...playersDatabase].sort((a, b) => {
+app.get('/api/leaderboard', async (req, res) => {
+    const players = await getPlayers();
+    const sorted = [...players].sort((a, b) => {
         if (b.solved !== a.solved) {
             return (b.solved || 0) - (a.solved || 0); 
         }
@@ -28,13 +48,14 @@ app.get('/api/leaderboard', (req, res) => {
 });
 
 // ===================================================================
-// 2. تحديث وإضافة المتسابقين
+// 2. تحديث وإضافة المتسابقين وتخزينها في السحاب مدى الحياة
 // ===================================================================
-app.post('/api/player/update', (req, res) => {
+app.post('/api/player/update', async (req, res) => {
     const { username, age, country, flag, iq, wins, streak, fullname, king_title } = req.body;
     if (!username) return res.status(400).json({ error: "الاسم مطلوب" });
 
-    let player = playersDatabase.find(p => p.username === username);
+    let players = await getPlayers();
+    let player = players.find(p => p.username === username);
 
     const today = new Date();
     const formattedDate = today.toISOString().split('T')[0]; 
@@ -62,21 +83,23 @@ app.post('/api/player/update', (req, res) => {
             streak: parseInt(streak) || 0,
             lastSolveDate: formattedDate 
         };
-        playersDatabase.push(player);
+        players.push(player);
     }
 
+    // حفظ المصفوفة بالكامل في السحاب
+    await redis.set(DB_KEY, players);
     res.json({ success: true, player });
 });
 
 // ===================================================================
 // 3. تصفير الموسم بالكامل
 // ===================================================================
-app.post('/api/reset', (req, res) => {
-    playersDatabase = [];
+app.post('/api/reset', async (req, res) => {
+    await redis.set(DB_KEY, []);
     res.json({ success: true });
 });
 
 const PORT = process.env.PORT || 5000;
-app.listen(PORT, () => console.log(`🚀 سيرفر Dopamine AI شغال بنجاح على بورت ${PORT}`));
+app.listen(PORT, () => console.log(`🚀 سيرفر Dopamine AI السحابي والمؤمن شغال بنجاح!`));
 
 module.exports = app;
