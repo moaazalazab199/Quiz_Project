@@ -12,10 +12,10 @@ app.use(cors({
 
 app.use(express.json());
 
-// الاتصال التلقائي بـ Upstash Redis عبر المتغيرات اللي Vercel أضافها
+// الاتصال التلقائي بـ Upstash Redis بالأسامي الصحيحة من السيرفر
 const redis = new Redis({
-    url: process.env.UPSTASH_REDIS_REST_URL,
-    token: process.env.UPSTASH_REDIS_REST_TOKEN,
+    url: process.env.KV_REST_API_URL,
+    token: process.env.KV_REST_API_TOKEN,
 });
 
 // مفتاح حفظ البيانات السحابي
