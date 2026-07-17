@@ -86,7 +86,7 @@ app.post('/api/player/update', async (req, res) => {
         players.push(player);
     }
 
-    // حفظ المصفوفة بالكامل في السحاب
+    // فظ المصفوفة بالكامل في السحاب
     await redis.set(DB_KEY, players);
     res.json({ success: true, player });
 });
