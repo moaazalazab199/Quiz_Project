@@ -1,5 +1,6 @@
 const express = require('express');
 const cors = require('cors');
+const path = require('path'); // ضفنا مكتبة التعامل مع مسارات الملفات عشان الـ HTML يشتغل
 const { Redis } = require('@upstash/redis'); // استيراد مكتبة Upstash Redis الجديدة
 const app = express();
 
@@ -11,6 +12,9 @@ app.use(cors({
 }));
 
 app.use(express.json());
+
+// 💡 السطر ده اللي هيخلي تصميم الموقع والـ HTML يظهروا على اللينك الرئيسي فوراً!
+app.use(express.static(__dirname));
 
 // الاتصال التلقائي بـ Upstash Redis بالأسامي الصحيحة من السيرفر
 const redis = new Redis({
@@ -32,6 +36,11 @@ async function getPlayers() {
         return [];
     }
 }
+
+// 💡 الرابط ده عشان لما تفتح اللينك الرئيسي علطول، يفتح لك صفحة index.html بتاعتك تلقائياً
+app.get('/', (req, res) => {
+    res.sendFile(path.join(__dirname, 'index.html'));
+});
 
 // ===================================================================
 // 1. رابط جلب لوحة الصدارة (مرتبة بالأكثر حلاً ثم الـ IQ الأعلى)
@@ -86,7 +95,7 @@ app.post('/api/player/update', async (req, res) => {
         players.push(player);
     }
 
-    // فظ المصفوفة بالكامل في السحاب
+    // حفظ المصفوفة بالكامل في السحاب
     await redis.set(DB_KEY, players);
     res.json({ success: true, player });
 });
