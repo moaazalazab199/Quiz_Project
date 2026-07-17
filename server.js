@@ -38,6 +38,9 @@ async function getPlayers() {
 }
 
 // 💡 الرابط ده عشان لما تفتح اللينك الرئيسي علطول، يفتح لك صفحة index.html بتاعتك تلقائياً
+const path = require('path');
+
+// توجيه اللينك الرئيسي لملف الـ HTML بتاعك
 app.get('/', (req, res) => {
     res.sendFile(path.join(__dirname, 'index.html'));
 });
