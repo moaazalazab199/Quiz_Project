@@ -1,7 +1,6 @@
 const express = require('express');
 const cors = require('cors');
 const { Redis } = require('@upstash/redis');
-const path = require('path');
 const app = express();
 
 // إعدادات الـ CORS الكاملة لمنع الحظر
@@ -13,12 +12,12 @@ app.use(cors({
 
 app.use(express.json());
 
-// ✅ إضافة خدمة الملفات الثابتة (HTML, CSS, JS)
+// ✅ إضافة خدمة الملفات الثابتة
 app.use(express.static(__dirname));
 
-// الاتصال المباشر بـ Upstash Redis
+// ✅ الاتصال بـ Upstash Redis (باستخدام البيانات الجديدة)
 const redis = new Redis({
-    url: 'https://enjoyed-javelin-164695.upstash.io,
+    url: 'https://enjoyed-javelin-164695.upstash.io',
     token: 'gQAAAAAAAoNXAAIgcDIwNzA5ZmZjZDBmYjk0YjM5OTU3YmNkMmFhZmZlODljZQ',
 });
 
@@ -94,5 +93,5 @@ app.post('/api/reset', async (req, res) => {
     res.json({ success: true });
 });
 
-// ✅ التصدير لـ Vercel (من غير app.listen)
+// ✅ تصدير لـ Vercel (بدون app.listen)
 module.exports = app;
