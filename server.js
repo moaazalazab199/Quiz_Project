@@ -1,6 +1,7 @@
 const express = require('express');
 const cors = require('cors');
-const { Redis } = require('@upstash/redis'); // استيراد مكتبة Upstash Redis الجديدة
+const { Redis } = require('@upstash/redis');
+const path = require('path');
 const app = express();
 
 // إعدادات الـ CORS الكاملة لمنع الحظر
@@ -12,20 +13,21 @@ app.use(cors({
 
 app.use(express.json());
 
-// الاتصال التلقائي بـ Upstash Redis بالأسامي الصحيحة من السيرفر
+// ✅ إضافة خدمة الملفات الثابتة (HTML, CSS, JS)
+app.use(express.static(__dirname));
+
+// الاتصال المباشر بـ Upstash Redis
 const redis = new Redis({
-    url: process.env.KV_REST_API_URL,
-    token: process.env.KV_REST_API_TOKEN,
+    url: 'https://enjoyed-javelin-164695.upstash.io,
+    token: 'gQAAAAAAAoNXAAIgcDIwNzA5ZmZjZDBmYjk0YjM5OTU3YmNkMmFhZmZlODljZQ',
 });
 
-// مفتاح حفظ البيانات السحابي
 const DB_KEY = 'dopamine_players_db';
 
-// دالة مساعدة لجلب البيانات بأمان من السحاب
+// دالة جلب البيانات من السحاب بأمان
 async function getPlayers() {
     try {
         const players = await redis.get(DB_KEY);
-        // لو البيانات رجعت مصفوفة تمام، لو لسه أول مرة وقافلة رجع مصفوفة فارغة
         return Array.isArray(players) ? players : [];
     } catch (e) {
         console.error("خطأ في قراءة قاعدة بيانات Upstash:", e);
@@ -33,9 +35,7 @@ async function getPlayers() {
     }
 }
 
-// ===================================================================
-// 1. رابط جلب لوحة الصدارة (مرتبة بالأكثر حلاً ثم الـ IQ الأعلى)
-// ===================================================================
+// 1. رابط جلب لوحة الصدارة
 app.get('/api/leaderboard', async (req, res) => {
     const players = await getPlayers();
     const sorted = [...players].sort((a, b) => {
@@ -47,9 +47,7 @@ app.get('/api/leaderboard', async (req, res) => {
     res.json(sorted);
 });
 
-// ===================================================================
-// 2. تحديث وإضافة المتسابقين وتخزينها في السحاب مدى الحياة
-// ===================================================================
+// 2. تحديث وإضافة المتسابقين وتخزينها في السحاب
 app.post('/api/player/update', async (req, res) => {
     const { username, age, country, flag, iq, wins, streak, fullname, king_title } = req.body;
     if (!username) return res.status(400).json({ error: "الاسم مطلوب" });
@@ -86,20 +84,15 @@ app.post('/api/player/update', async (req, res) => {
         players.push(player);
     }
 
-    // حفظ Matrix بالكامل في السحاب
     await redis.set(DB_KEY, players);
     res.json({ success: true, player });
 });
 
-// ===================================================================
 // 3. تصفير الموسم بالكامل
-// ===================================================================
 app.post('/api/reset', async (req, res) => {
     await redis.set(DB_KEY, []);
     res.json({ success: true });
 });
 
-const PORT = process.env.PORT || 5000;
-app.listen(PORT, () => console.log(`🚀 سيرفر Dopamine AI السحابي والمؤمن شغال بنجاح!`));
-
+// ✅ التصدير لـ Vercel (من غير app.listen)
 module.exports = app;
