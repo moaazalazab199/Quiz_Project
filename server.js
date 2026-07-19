@@ -13,8 +13,23 @@ app.use(cors({
 
 app.use(express.json());
 
-// ✅ خدمة الملفات الثابتة (HTML, CSS, JS)
+// ✅ خدمة الملفات الثابتة
 app.use(express.static(__dirname));
+
+// ✅ إضافة مسار الصفحة الرئيسية
+app.get('/', (req, res) => {
+    res.sendFile(path.join(__dirname, 'index.html'));
+});
+
+// ✅ مسار admin
+app.get('/admin', (req, res) => {
+    res.sendFile(path.join(__dirname, 'admin.html'));
+});
+
+// ✅ مسار rules
+app.get('/rules', (req, res) => {
+    res.sendFile(path.join(__dirname, 'rules.html'));
+});
 
 // الاتصال بـ Upstash Redis
 const redis = new Redis({
@@ -34,7 +49,7 @@ async function getPlayers() {
     }
 }
 
-// API Routes
+// 1. جلب لوحة الصدارة
 app.get('/api/leaderboard', async (req, res) => {
     const players = await getPlayers();
     const sorted = [...players].sort((a, b) => {
@@ -46,6 +61,7 @@ app.get('/api/leaderboard', async (req, res) => {
     res.json(sorted);
 });
 
+// 2. تحديث متسابق
 app.post('/api/player/update', async (req, res) => {
     const { username, age, country, flag, iq, wins, streak, fullname, king_title } = req.body;
     if (!username) return res.status(400).json({ error: "الاسم مطلوب" });
@@ -86,10 +102,10 @@ app.post('/api/player/update', async (req, res) => {
     res.json({ success: true, player });
 });
 
+// 3. تصفير الموسم
 app.post('/api/reset', async (req, res) => {
     await redis.set(DB_KEY, []);
     res.json({ success: true });
 });
 
-// ✅ تصدير لـ Vercel
 module.exports = app;
