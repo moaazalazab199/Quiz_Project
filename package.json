@@ -4,13 +4,8 @@
   "description": "Dopamine AI Leaderboard",
   "main": "server.js",
   "scripts": {
-    "start": "node server.js",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "node server.js"
   },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
-  "type": "commonjs",
   "dependencies": {
     "@upstash/redis": "^1.38.0",
     "cors": "^2.8.6",
