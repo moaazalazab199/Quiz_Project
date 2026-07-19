@@ -24,38 +24,38 @@
 			background: var(--bg-dark);
 			color: var(--text-white);
 			min-height: 100vh;
-			padding: 10px;
+			padding: 15px;
 			direction: rtl;
 			}
 
 			/* ===== HEADER ===== */
-			.app-header { margin-bottom: 20px; }
+			.app-header { margin-bottom: 25px; }
 			.header-container {
 			background: rgba(15, 19, 26, 0.85);
 			backdrop-filter: blur(20px);
 			border: 1px solid var(--border-color);
-			border-radius: 16px;
-			padding: 12px 16px;
+			border-radius: 20px;
+			padding: 16px 22px;
 			display: flex;
 			justify-content: space-between;
 			align-items: center;
 			flex-wrap: wrap;
-			gap: 10px;
+			gap: 12px;
 			box-shadow: 0 4px 30px rgba(0, 0, 0, 0.4);
 			}
-			.brand { display: flex; align-items: center; gap: 10px; }
-			.brand-logo { font-size: 24px; }
+			.brand { display: flex; align-items: center; gap: 12px; }
+			.brand-logo { font-size: 30px; }
 			.brand-text h1 {
 			font-family: 'Orbitron', sans-serif;
-			font-size: 18px;
+			font-size: 24px;
 			font-weight: 900;
 			background: linear-gradient(135deg, var(--text-white) 30%, var(--gold) 70%);
 			-webkit-background-clip: text;
 			-webkit-text-fill-color: transparent;
 			}
 			.brand-text p {
-			font-size: 9px;
-			letter-spacing: 3px;
+			font-size: 11px;
+			letter-spacing: 4px;
 			color: var(--fiery-orange);
 			font-weight: 600;
 			margin-top: -2px;
@@ -63,17 +63,17 @@
 			.system-status {
 			display: flex;
 			align-items: center;
-			gap: 6px;
-			font-size: 10px;
+			gap: 8px;
+			font-size: 13px;
 			color: rgba(255, 255, 255, 0.7);
 			background: rgba(255, 106, 0, 0.05);
-			padding: 4px 10px;
-			border-radius: 20px;
+			padding: 6px 14px;
+			border-radius: 30px;
 			border: 1px solid rgba(255, 106, 0, 0.15);
 			}
 			.status-dot {
-			width: 8px;
-			height: 8px;
+			width: 10px;
+			height: 10px;
 			border-radius: 50%;
 			background: var(--fiery-orange);
 			animation: blink-dot 1.2s ease-in-out infinite;
@@ -90,39 +90,39 @@
 			.metrics-grid {
 			display: grid;
 			grid-template-columns: repeat(3, 1fr);
-			gap: 10px;
-			margin-bottom: 20px;
+			gap: 15px;
+			margin-bottom: 25px;
 			}
 			.metric-card {
 			background: var(--card-bg);
 			border: 1px solid var(--border-color);
-			border-radius: 12px;
-			padding: 12px 14px;
+			border-radius: 16px;
+			padding: 18px 22px;
 			display: flex;
 			align-items: center;
-			gap: 10px;
+			gap: 14px;
 			box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
 			}
 			.metric-icon {
-			font-size: 20px;
-			width: 36px;
-			height: 36px;
+			font-size: 28px;
+			width: 50px;
+			height: 50px;
 			display: flex;
 			align-items: center;
 			justify-content: center;
 			background: rgba(255, 255, 255, 0.02);
-			border-radius: 10px;
+			border-radius: 12px;
 			border: 1px solid rgba(255, 255, 255, 0.03);
 			}
 			.metric-info h3 {
-			font-size: 10px;
+			font-size: 13px;
 			font-weight: 400;
 			color: var(--text-muted);
-			margin-bottom: 2px;
+			margin-bottom: 4px;
 			}
 			.metric-value {
 			font-family: 'Orbitron', sans-serif;
-			font-size: 18px;
+			font-size: 28px;
 			font-weight: 700;
 			background: linear-gradient(135deg, var(--gold), var(--fiery-orange));
 			-webkit-background-clip: text;
@@ -132,53 +132,55 @@
 			/* ===== CONTENT ===== */
 			.content-layout {
 			display: grid;
-			grid-template-columns: 1fr;
-			gap: 15px;
+			grid-template-columns: 1fr 360px;
+			gap: 25px;
 			}
-			.profile-sidebar { order: -1; }
 
 			/* ===== LEADERBOARD ===== */
 			.leaderboard-container {
 			background: var(--card-bg);
-			border-radius: 16px;
+			border-radius: 20px;
 			border: 1px solid var(--border-color);
-			padding: 16px;
+			padding: 25px;
 			box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
 			}
 			.control-panel {
 			display: flex;
-			flex-direction: column;
-			gap: 10px;
-			margin-bottom: 16px;
+			justify-content: space-between;
+			align-items: center;
+			flex-wrap: wrap;
+			gap: 15px;
+			margin-bottom: 25px;
 			}
 			.search-box {
 			display: flex;
 			align-items: center;
 			background: #141a24;
 			border: 1px solid var(--border-color);
-			border-radius: 10px;
-			padding: 0 12px;
-			width: 100%;
+			border-radius: 12px;
+			padding: 0 16px;
+			flex: 1;
+			min-width: 200px;
 			}
 			.search-box input {
 			background: transparent;
 			border: none;
-			padding: 10px 12px;
+			padding: 14px 16px;
 			color: var(--text-white);
 			font-family: 'Cairo', sans-serif;
-			font-size: 13px;
+			font-size: 15px;
 			width: 100%;
 			outline: none;
 			}
 			.search-box input::placeholder { color: rgba(138, 153, 173, 0.5); }
 			.filter-badge {
-			font-size: 11px;
+			font-size: 14px;
 			color: var(--gold);
 			background: rgba(255, 215, 0, 0.05);
-			padding: 6px 14px;
-			border-radius: 20px;
+			padding: 10px 20px;
+			border-radius: 30px;
 			border: 1px solid rgba(255, 215, 0, 0.15);
-			text-align: center;
+			white-space: nowrap;
 			font-weight: 700;
 			}
 
@@ -186,16 +188,15 @@
 			.premium-table {
 			width: 100%;
 			border-collapse: separate;
-			border-spacing: 0 6px;
-			font-size: 11px;
-			min-width: 500px;
+			border-spacing: 0 10px;
+			font-size: 15px;
 			}
 			.premium-table thead tr th {
 			text-align: right;
-			padding: 8px 10px;
+			padding: 14px 16px;
 			font-weight: 800;
-			font-size: 10px;
-			letter-spacing: 0.5px;
+			font-size: 13px;
+			letter-spacing: 1px;
 			color: var(--text-muted);
 			border-bottom: 2px solid var(--border-color);
 			}
@@ -205,19 +206,20 @@
 			cursor: pointer;
 			}
 			.premium-table tbody tr:hover { transform: translateY(-2px); box-shadow: 0 5px 15px rgba(255, 106, 0, 0.08); }
-			.premium-table td { padding: 10px 8px; vertical-align: middle; }
-			.premium-table td:first-child { border-top-right-radius: 8px; border-bottom-right-radius: 8px; }
-			.premium-table td:last-child { border-top-left-radius: 8px; border-bottom-left-radius: 8px; }
+			.premium-table td { padding: 16px 16px; vertical-align: middle; }
+			.premium-table td:first-child { border-top-right-radius: 10px; border-bottom-right-radius: 10px; }
+			.premium-table td:last-child { border-top-left-radius: 10px; border-bottom-left-radius: 10px; }
 
-			.rank-number { font-family: 'Orbitron', sans-serif; font-weight: 900; text-align: center; font-size: 13px; color: var(--text-muted); }
-			.badge-medal { display: inline-block; width: 26px; height: 26px; line-height: 26px; text-align: center; border-radius: 50%; font-weight: 900; font-size: 11px; }
+			.rank-number { font-family: 'Orbitron', sans-serif; font-weight: 900; text-align: center; font-size: 18px; color: var(--text-muted); }
+			.badge-medal { display: inline-block; width: 34px; height: 34px; line-height: 34px; text-align: center; border-radius: 50%; font-weight: 900; font-size: 15px; }
 			.gold-m { background: linear-gradient(135deg, var(--gold), var(--fiery-orange)); color: #07090e; box-shadow: 0 0 15px rgba(255, 215, 0, 0.4); }
 
-			.player-profile-cell { display: flex; align-items: center; gap: 8px; }
-			.cell-avatar { width: 28px; height: 28px; border-radius: 50%; border: 2px solid var(--border-color); }
-			.cell-name { font-weight: 700; color: var(--text-white); font-size: 11px; }
+			.player-profile-cell { display: flex; align-items: center; gap: 14px; }
+			.cell-avatar { width: 42px; height: 42px; border-radius: 50%; border: 2px solid var(--border-color); }
+			tr.row-podium .cell-avatar { border-color: var(--gold); }
+			.cell-name { font-weight: 700; color: var(--text-white); font-size: 15px; }
 
-			.rank-badge { font-size: 9px; padding: 3px 8px; border-radius: 20px; font-weight: 800; display: inline-block; }
+			.rank-badge { font-size: 12px; padding: 6px 16px; border-radius: 30px; font-weight: 800; display: inline-block; }
 			.rank-shadow { background: rgba(138, 153, 173, 0.1); color: var(--text-muted); border: 1px solid rgba(138, 153, 173, 0.15); }
 			.rank-spark { background: rgba(255, 106, 0, 0.1); color: var(--fiery-orange); border: 1px solid rgba(255, 106, 0, 0.15); }
 			.rank-guardian { background: rgba(255, 215, 0, 0.08); color: var(--gold); border: 1px solid rgba(255, 215, 0, 0.15); }
@@ -225,33 +227,34 @@
 			.rank-dopamine { background: linear-gradient(135deg, rgba(255,106,0,0.2), rgba(255,215,0,0.2)); color: #ff7b00; border: 1px solid #ff6a00; box-shadow: 0 0 10px rgba(255, 106, 0, 0.2); }
 
 			.cell-center { text-align: center; }
-			.cell-iq { font-family: 'Orbitron', sans-serif; font-weight: 800; color: #38bdf8; background: rgba(56, 189, 248, 0.08); padding: 2px 6px; border-radius: 4px; display: inline-block; font-size: 11px; }
-			.cell-solved { color: #4ade80; font-weight: 700; font-size: 11px; }
-			.cell-country { display: flex; align-items: center; gap: 4px; font-weight: 600; font-size: 10px; }
-			.flag-emoji { font-size: 1rem; }
+			.cell-iq { font-family: 'Orbitron', sans-serif; font-weight: 800; color: #38bdf8; background: rgba(56, 189, 248, 0.08); padding: 6px 12px; border-radius: 6px; display: inline-block; font-size: 15px; }
+			.cell-solved { color: #4ade80; font-weight: 700; font-size: 15px; }
+			.cell-country { display: flex; align-items: center; gap: 8px; font-weight: 600; font-size: 14px; }
+			.flag-emoji { font-size: 1.4rem; }
 
 			/* ===== SIDEBAR ===== */
-			.sticky-profile { position: relative; top: 0; }
-			.sidebar-header { margin-bottom: 12px; }
-			.sidebar-header h3 { font-size: 15px; font-weight: 800; margin-bottom: 2px; color: var(--gold); }
-			.sidebar-header p { font-size: 11px; color: var(--text-muted); }
+			.profile-sidebar { position: relative; }
+			.sticky-profile { position: sticky; top: 20px; }
+			.sidebar-header { margin-bottom: 20px; }
+			.sidebar-header h3 { font-size: 20px; font-weight: 800; margin-bottom: 4px; color: var(--gold); }
+			.sidebar-header p { font-size: 14px; color: var(--text-muted); }
 
 			.focused-profile-card {
 			background: var(--card-bg);
 			border: 1px solid var(--border-color);
-			border-radius: 16px;
-			padding: 20px 16px;
+			border-radius: 20px;
+			padding: 30px 25px;
 			text-align: center;
 			box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
 			}
-			.profile-avatar-wrapper { position: relative; display: inline-block; margin-bottom: 8px; }
-			.profile-avatar-wrapper img { width: 60px; height: 60px; border-radius: 50%; border: 2px solid var(--gold); position: relative; z-index: 1; background: #141a24; }
+			.profile-avatar-wrapper { position: relative; display: inline-block; margin-bottom: 12px; }
+			.profile-avatar-wrapper img { width: 90px; height: 90px; border-radius: 50%; border: 2px solid var(--gold); position: relative; z-index: 1; background: #141a24; }
 			.glow-ring {
 			position: absolute;
 			top: -4px;
 			left: -4px;
-			width: 68px;
-			height: 68px;
+			width: 98px;
+			height: 98px;
 			border-radius: 50%;
 			background: conic-gradient(from 0deg, var(--fiery-orange), var(--gold), var(--fiery-orange));
 			opacity: 0.5;
@@ -260,138 +263,146 @@
 			}
 			@keyframes spin-ring { to { transform: rotate(360deg); } }
 
-			.player-rank-number { font-family: 'Orbitron', monospace; font-size: 16px; color: var(--text-muted); margin-bottom: 2px; letter-spacing: 2px; font-weight: 900; }
-			.player-rank-number span { color: var(--gold); font-weight: 900; font-size: 20px; text-shadow: 0 0 20px rgba(255, 215, 0, 0.3); }
-			.profile-username { font-size: 18px; font-weight: 800; margin-bottom: 2px; color: var(--text-white); }
-			.profile-king-title { font-size: 12px; color: var(--gold); font-weight: 700; margin-bottom: 10px; letter-spacing: 1px; }
+			.player-rank-number { font-family: 'Orbitron', monospace; font-size: 22px; color: var(--text-muted); margin-bottom: 4px; letter-spacing: 3px; font-weight: 900; }
+			.player-rank-number span { color: var(--gold); font-weight: 900; font-size: 28px; text-shadow: 0 0 20px rgba(255, 215, 0, 0.3); }
+			.profile-username { font-size: 24px; font-weight: 800; margin-bottom: 4px; color: var(--text-white); }
+			.profile-king-title { font-size: 15px; color: var(--gold); font-weight: 700; margin-bottom: 16px; letter-spacing: 1px; }
 
 			.profile-info-row {
 			display: flex;
 			justify-content: center;
-			gap: 10px;
-			font-size: 12px;
+			gap: 16px;
+			font-size: 14px;
 			color: var(--text-white);
-			margin-bottom: 10px;
+			margin-bottom: 16px;
 			flex-wrap: wrap;
 			background: #141a24;
-			padding: 8px;
-			border-radius: 8px;
+			padding: 14px;
+			border-radius: 10px;
 			border: 1px solid var(--border-color);
 			}
-			.profile-info-row .info-item { display: flex; align-items: center; gap: 4px; font-weight: 600; }
-			.profile-info-row .info-item .flag { font-size: 16px; }
+			.profile-info-row .info-item { display: flex; align-items: center; gap: 6px; font-weight: 600; }
+			.profile-info-row .info-item .flag { font-size: 20px; }
 
-			.divider { height: 1px; background: linear-gradient(90deg, transparent, var(--border-color), transparent); margin: 10px 0; }
+			.divider { height: 1px; background: linear-gradient(90deg, transparent, var(--border-color), transparent); margin: 16px 0; }
 
-			.focused-stats { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 6px; margin-bottom: 12px; }
-			.f-stat { background: #141a24; border-radius: 8px; padding: 8px 4px; border: 1px solid var(--border-color); }
-			.f-stat .f-label { display: block; font-size: 8px; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 2px; font-weight: 700; }
-			.f-stat .f-val { font-family: 'Orbitron', monospace; font-size: 14px; font-weight: 900; }
+			.focused-stats { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 12px; margin-bottom: 20px; }
+			.f-stat { background: #141a24; border-radius: 10px; padding: 12px 8px; border: 1px solid var(--border-color); }
+			.f-stat .f-label { display: block; font-size: 11px; color: var(--text-muted); text-transform: uppercase; letter-spacing: 1px; margin-bottom: 4px; font-weight: 700; }
+			.f-stat .f-val { font-family: 'Orbitron', monospace; font-size: 20px; font-weight: 900; }
 
-			.xp-progress-wrapper { margin-top: 4px; }
-			.xp-labels { display: flex; justify-content: space-between; font-size: 9px; color: var(--text-muted); margin-bottom: 4px; font-weight: 700; }
-			.xp-track { width: 100%; height: 4px; background: rgba(255, 255, 255, 0.05); border-radius: 10px; overflow: hidden; }
+			.xp-progress-wrapper { margin-top: 6px; }
+			.xp-labels { display: flex; justify-content: space-between; font-size: 12px; color: var(--text-muted); margin-bottom: 6px; font-weight: 700; }
+			.xp-track { width: 100%; height: 8px; background: rgba(255, 255, 255, 0.05); border-radius: 10px; overflow: hidden; }
 			.xp-fill { height: 100%; background: linear-gradient(90deg, var(--fiery-orange), var(--gold)); border-radius: 10px; transition: width 0.8s ease; }
 
-			/* ===== MOBILE RESPONSIVE ===== */
+			/* ===== MOBILE RESPONSIVE (تكبير) ===== */
 
-			/* للموبايل (شاشات صغيرة) */
-			@media (max-width: 768px) {
-			.brand-text h1 { font-size: 16px; }
-			.brand-logo { font-size: 20px; }
-			.brand-text p { font-size: 8px; letter-spacing: 2px; }
-			.header-container { padding: 10px 12px; }
-			.system-status { font-size: 9px; padding: 4px 8px; }
-
-			.metrics-grid { grid-template-columns: 1fr 1fr; gap: 8px; }
-			.metric-card { padding: 10px 12px; gap: 8px; }
-			.metric-value { font-size: 16px; }
-			.metric-icon { font-size: 18px; width: 32px; height: 32px; }
-			.metric-info h3 { font-size: 9px; }
-
-			.leaderboard-container { padding: 12px; }
-			.premium-table { font-size: 10px; min-width: 400px; }
-			.premium-table td { padding: 8px 6px; }
-			.cell-avatar { width: 24px; height: 24px; }
-			.cell-name { font-size: 10px; }
-			.rank-badge { font-size: 8px; padding: 2px 6px; }
-			.cell-iq { font-size: 10px; padding: 2px 4px; }
-			.cell-solved { font-size: 10px; }
-			.flag-emoji { font-size: 0.8rem; }
-			.rank-number { font-size: 11px; }
-			.badge-medal { width: 22px; height: 22px; line-height: 22px; font-size: 9px; }
-
-			.focused-profile-card { padding: 16px 12px; }
-			.profile-avatar-wrapper img { width: 50px; height: 50px; }
-			.glow-ring { width: 58px; height: 58px; top: -4px; left: -4px; }
-			.profile-username { font-size: 16px; }
-			.profile-king-title { font-size: 11px; }
-			.f-stat .f-val { font-size: 12px; }
-			.player-rank-number { font-size: 14px; }
-			.player-rank-number span { font-size: 18px; }
-			.profile-info-row { font-size: 11px; padding: 6px; gap: 6px; flex-direction: row; }
-
-			.sidebar-header h3 { font-size: 14px; }
-			.sidebar-header p { font-size: 10px; }
+			@media (max-width: 1024px) {
+			.content-layout { grid-template-columns: 1fr; }
+			.profile-sidebar { order: -1; }
+			.header-container { flex-direction: column; text-align: center; }
+			.brand { justify-content: center; }
+			.system-status { justify-content: center; }
 			}
 
-			/* للموبايل الصغير جداً (أقل من 480px) */
+			@media (max-width: 768px) {
+			body { padding: 12px; }
+
+			.brand-text h1 { font-size: 22px; }
+			.brand-logo { font-size: 28px; }
+			.header-container { padding: 14px 18px; }
+			.system-status { font-size: 12px; padding: 6px 12px; }
+
+			.metrics-grid { grid-template-columns: 1fr 1fr; gap: 12px; }
+			.metric-card { padding: 16px 18px; }
+			.metric-value { font-size: 24px; }
+			.metric-icon { font-size: 24px; width: 44px; height: 44px; }
+			.metric-info h3 { font-size: 12px; }
+
+			.leaderboard-container { padding: 18px; }
+			.premium-table { font-size: 13px; }
+			.premium-table td { padding: 14px 12px; }
+			.cell-avatar { width: 36px; height: 36px; }
+			.cell-name { font-size: 13px; }
+			.rank-badge { font-size: 11px; padding: 5px 12px; }
+			.cell-iq { font-size: 13px; padding: 4px 10px; }
+			.cell-solved { font-size: 13px; }
+			.flag-emoji { font-size: 1.2rem; }
+			.rank-number { font-size: 16px; }
+			.badge-medal { width: 30px; height: 30px; line-height: 30px; font-size: 13px; }
+
+			.focused-profile-card { padding: 24px 20px; }
+			.profile-avatar-wrapper img { width: 75px; height: 75px; }
+			.glow-ring { width: 83px; height: 83px; }
+			.profile-username { font-size: 20px; }
+			.profile-king-title { font-size: 13px; }
+			.f-stat .f-val { font-size: 17px; }
+			.player-rank-number { font-size: 18px; }
+			.player-rank-number span { font-size: 24px; }
+			.profile-info-row { font-size: 13px; padding: 12px; gap: 12px; flex-direction: row; }
+
+			.sidebar-header h3 { font-size: 18px; }
+			.sidebar-header p { font-size: 13px; }
+			}
+
 			@media (max-width: 480px) {
-			body { padding: 6px; }
+			body { padding: 8px; }
 
-			.brand-text h1 { font-size: 14px; }
-			.brand-logo { font-size: 18px; }
-			.brand-text p { font-size: 7px; letter-spacing: 1px; }
-			.header-container { padding: 8px 10px; border-radius: 12px; gap: 6px; }
-			.system-status { font-size: 8px; padding: 3px 6px; }
-			.status-dot { width: 6px; height: 6px; }
+			.brand-text h1 { font-size: 18px; }
+			.brand-logo { font-size: 22px; }
+			.brand-text p { font-size: 9px; letter-spacing: 2px; }
+			.header-container { padding: 10px 14px; border-radius: 16px; gap: 8px; }
+			.system-status { font-size: 10px; padding: 4px 10px; }
+			.status-dot { width: 8px; height: 8px; }
 
-			.metrics-grid { grid-template-columns: 1fr; gap: 6px; }
-			.metric-card { padding: 8px 10px; border-radius: 10px; }
-			.metric-value { font-size: 14px; }
-			.metric-icon { font-size: 16px; width: 28px; height: 28px; }
-			.metric-info h3 { font-size: 8px; }
+			.metrics-grid { grid-template-columns: 1fr; gap: 10px; }
+			.metric-card { padding: 14px 16px; border-radius: 14px; }
+			.metric-value { font-size: 22px; }
+			.metric-icon { font-size: 22px; width: 40px; height: 40px; }
+			.metric-info h3 { font-size: 11px; }
 
-			.leaderboard-container { padding: 10px; border-radius: 12px; }
-			.control-panel { gap: 6px; margin-bottom: 10px; }
-			.search-box input { font-size: 11px; padding: 8px 10px; }
-			.filter-badge { font-size: 10px; padding: 4px 10px; }
+			.leaderboard-container { padding: 14px; border-radius: 16px; }
+			.control-panel { flex-direction: column; gap: 10px; margin-bottom: 16px; }
+			.search-box { width: 100%; }
+			.search-box input { font-size: 14px; padding: 12px 14px; }
+			.filter-badge { font-size: 12px; padding: 8px 16px; width: 100%; text-align: center; }
 
-			.premium-table { font-size: 9px; min-width: 320px; }
-			.premium-table thead tr th { font-size: 8px; padding: 6px 4px; }
-			.premium-table td { padding: 6px 4px; }
-			.cell-avatar { width: 20px; height: 20px; }
-			.cell-name { font-size: 9px; }
-			.rank-badge { font-size: 7px; padding: 2px 5px; }
-			.cell-iq { font-size: 9px; padding: 1px 4px; }
-			.cell-solved { font-size: 9px; }
-			.flag-emoji { font-size: 0.7rem; }
-			.cell-country { font-size: 8px; gap: 2px; }
-			.rank-number { font-size: 10px; }
-			.badge-medal { width: 20px; height: 20px; line-height: 20px; font-size: 8px; }
+			.premium-table { font-size: 11px; min-width: 380px; }
+			.premium-table thead tr th { font-size: 10px; padding: 10px 8px; }
+			.premium-table td { padding: 10px 8px; }
+			.cell-avatar { width: 30px; height: 30px; }
+			.cell-name { font-size: 11px; }
+			.rank-badge { font-size: 9px; padding: 4px 10px; }
+			.cell-iq { font-size: 11px; padding: 4px 8px; }
+			.cell-solved { font-size: 11px; }
+			.flag-emoji { font-size: 1rem; }
+			.cell-country { font-size: 11px; gap: 4px; }
+			.rank-number { font-size: 14px; }
+			.badge-medal { width: 26px; height: 26px; line-height: 26px; font-size: 11px; }
 
-			.focused-profile-card { padding: 12px 10px; border-radius: 12px; }
-			.profile-avatar-wrapper img { width: 44px; height: 44px; }
-			.glow-ring { width: 52px; height: 52px; top: -4px; left: -4px; }
-			.profile-username { font-size: 14px; }
-			.profile-king-title { font-size: 10px; }
-			.f-stat .f-val { font-size: 11px; }
-			.f-stat .f-label { font-size: 7px; }
-			.player-rank-number { font-size: 12px; }
-			.player-rank-number span { font-size: 16px; }
-			.profile-info-row { font-size: 10px; padding: 4px 6px; gap: 4px; flex-direction: row; flex-wrap: wrap; }
-			.profile-info-row .info-item .flag { font-size: 14px; }
+			.focused-profile-card { padding: 18px 14px; border-radius: 16px; }
+			.profile-avatar-wrapper img { width: 65px; height: 65px; }
+			.glow-ring { width: 73px; height: 73px; }
+			.profile-username { font-size: 18px; }
+			.profile-king-title { font-size: 12px; }
+			.f-stat .f-val { font-size: 15px; }
+			.f-stat .f-label { font-size: 9px; }
+			.player-rank-number { font-size: 16px; }
+			.player-rank-number span { font-size: 20px; }
+			.profile-info-row { font-size: 12px; padding: 10px; gap: 8px; flex-direction: row; flex-wrap: wrap; }
+			.profile-info-row .info-item .flag { font-size: 16px; }
 
-			.sidebar-header h3 { font-size: 13px; }
-			.sidebar-header p { font-size: 9px; }
+			.sidebar-header h3 { font-size: 16px; }
+			.sidebar-header p { font-size: 11px; }
 
-			.focused-stats { gap: 4px; }
-			.f-stat { padding: 6px 2px; }
+			.focused-stats { gap: 8px; }
+			.f-stat { padding: 10px 6px; }
 
-			.xp-labels { font-size: 8px; }
-			.xp-track { height: 3px; }
+			.xp-labels { font-size: 10px; }
+			.xp-track { height: 6px; }
 
-			/* ✅ إخفاء أعمدة في الموبايل الصغير */
+			/* ✅ إخفاء أعمدة العمر والبلد في الموبايل الصغير */
 			.premium-table th:nth-child(5),
 			.premium-table td:nth-child(5),
 			.premium-table th:nth-child(6),
