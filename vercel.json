@@ -20,6 +20,10 @@
             "dest": "/rules.html"
         },
         {
+            "src": "/style.css",
+            "dest": "/style.css"
+        },
+        {
             "src": "/(.*)\\.(html|css|js|png|jpg|jpeg|svg|ico|json|txt)$",
             "dest": "/$1.$2"
         },

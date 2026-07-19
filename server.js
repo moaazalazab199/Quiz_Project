@@ -1,9 +1,10 @@
 const express = require('express');
 const cors = require('cors');
 const { Redis } = require('@upstash/redis');
+const path = require('path');
 const app = express();
 
-// إعدادات الـ CORS الكاملة لمنع الحظر
+// إعدادات الـ CORS
 app.use(cors({
     origin: '*',
     methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
@@ -12,10 +13,10 @@ app.use(cors({
 
 app.use(express.json());
 
-// ✅ إضافة خدمة الملفات الثابتة
+// ✅ خدمة الملفات الثابتة (HTML, CSS, JS)
 app.use(express.static(__dirname));
 
-// ✅ الاتصال بـ Upstash Redis (باستخدام البيانات الجديدة)
+// الاتصال بـ Upstash Redis
 const redis = new Redis({
     url: 'https://enjoyed-javelin-164695.upstash.io',
     token: 'gQAAAAAAAoNXAAIgcDIwNzA5ZmZjZDBmYjk0YjM5OTU3YmNkMmFhZmZlODljZQ',
@@ -23,7 +24,6 @@ const redis = new Redis({
 
 const DB_KEY = 'dopamine_players_db';
 
-// دالة جلب البيانات من السحاب بأمان
 async function getPlayers() {
     try {
         const players = await redis.get(DB_KEY);
@@ -34,7 +34,7 @@ async function getPlayers() {
     }
 }
 
-// 1. رابط جلب لوحة الصدارة
+// API Routes
 app.get('/api/leaderboard', async (req, res) => {
     const players = await getPlayers();
     const sorted = [...players].sort((a, b) => {
@@ -46,7 +46,6 @@ app.get('/api/leaderboard', async (req, res) => {
     res.json(sorted);
 });
 
-// 2. تحديث وإضافة المتسابقين وتخزينها في السحاب
 app.post('/api/player/update', async (req, res) => {
     const { username, age, country, flag, iq, wins, streak, fullname, king_title } = req.body;
     if (!username) return res.status(400).json({ error: "الاسم مطلوب" });
@@ -87,11 +86,10 @@ app.post('/api/player/update', async (req, res) => {
     res.json({ success: true, player });
 });
 
-// 3. تصفير الموسم بالكامل
 app.post('/api/reset', async (req, res) => {
     await redis.set(DB_KEY, []);
     res.json({ success: true });
 });
 
-// ✅ تصدير لـ Vercel (بدون app.listen)
+// ✅ تصدير لـ Vercel
 module.exports = app;
