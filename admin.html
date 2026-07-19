@@ -6,9 +6,7 @@
 				<title>Dopamine AI | لوحة التحكم السرية</title>
 				<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700;900&family=Orbitron:wght@500;700;900&display=swap" rel="stylesheet" />
 				<style>
-					/* ===== RESET & VARIABLES ===== */
 					* { margin: 0; padding: 0; box-sizing: border-box; }
-
 					:root {
 					--bg-dark: #07090e;
 					--card-bg: #0f131a;
@@ -18,7 +16,6 @@
 					--text-muted: #8a99ad;
 					--border-color: #1b2330;
 					}
-
 					body {
 					background: var(--bg-dark);
 					color: var(--text-white);
@@ -30,7 +27,6 @@
 					margin: 0;
 					padding: 20px;
 					}
-
 					.container {
 					background: var(--card-bg);
 					padding: 40px 35px;
@@ -40,8 +36,6 @@
 					width: 100%;
 					max-width: 500px;
 					}
-
-					/* ===== LOGO ===== */
 					.logo { text-align: center; margin-bottom: 25px; }
 					.logo h1 {
 					font-family: 'Orbitron', sans-serif;
@@ -59,8 +53,6 @@
 					font-weight: 600;
 					letter-spacing: 2px;
 					}
-
-					/* ===== STATUS BADGE ===== */
 					.status-badge {
 					text-align: center;
 					margin-bottom: 25px;
@@ -84,11 +76,7 @@
 					0%, 100% { opacity: 1; }
 					50% { opacity: 0.2; }
 					}
-
-					/* ===== FORM GROUP ===== */
-					.form-group {
-					margin-bottom: 15px;
-					}
+					.form-group { margin-bottom: 15px; }
 					.form-group label {
 					display: block;
 					font-size: 13px;
@@ -122,14 +110,11 @@
 					background: var(--card-bg);
 					color: var(--text-white);
 					}
-
 					.form-row {
 					display: grid;
 					grid-template-columns: 1fr 1fr;
 					gap: 12px;
 					}
-
-					/* ===== BUTTONS ===== */
 					.btn {
 					width: 100%;
 					padding: 14px;
@@ -155,8 +140,6 @@
 					.btn-danger:hover {
 					box-shadow: 0 8px 25px rgba(255, 77, 77, 0.3);
 					}
-
-					/* ===== MESSAGES ===== */
 					#msg {
 					text-align: center;
 					margin-top: 15px;
@@ -175,13 +158,11 @@
 					background: rgba(255, 77, 77, 0.05);
 					border: 1px solid rgba(255, 77, 77, 0.15);
 					}
-
 					.divider {
 					height: 1px;
 					background: linear-gradient(90deg, transparent, var(--border-color), transparent);
 					margin: 20px 0;
 					}
-
 					@media (max-width: 480px) {
 					.container { padding: 25px 20px; }
 					.form-row { grid-template-columns: 1fr; }
@@ -272,7 +253,7 @@
 
 		<script>
 			const API_URL = "/api";
-			
+
 			function addPlayer() {
 			const username = document.getElementById('username').value.trim();
 			const iq = parseInt(document.getElementById('iq').value) || 0;

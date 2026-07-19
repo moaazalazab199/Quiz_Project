@@ -16,17 +16,15 @@ app.use(express.json());
 // ✅ خدمة الملفات الثابتة
 app.use(express.static(__dirname));
 
-// ✅ إضافة مسار الصفحة الرئيسية
+// ✅ مسار الصفحة الرئيسية
 app.get('/', (req, res) => {
     res.sendFile(path.join(__dirname, 'index.html'));
 });
 
-// ✅ مسار admin
 app.get('/admin', (req, res) => {
     res.sendFile(path.join(__dirname, 'admin.html'));
 });
 
-// ✅ مسار rules
 app.get('/rules', (req, res) => {
     res.sendFile(path.join(__dirname, 'rules.html'));
 });
